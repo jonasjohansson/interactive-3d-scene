@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Geograph';
+    src: url('Geograph.woff2') format('woff2'),
+        url('Geograph.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographThin-Italic.woff2') format('woff2'),
+        url('GeographThin-Italic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditLight-Italic.woff2') format('woff2'),
+        url('GeographEditLight-Italic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditThin-Italic.woff2') format('woff2'),
+        url('GeographEditThin-Italic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEdit.woff2') format('woff2'),
+        url('GeographEdit.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographMedium-Italic.woff2') format('woff2'),
+        url('GeographMedium-Italic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEdit-Bold.woff2') format('woff2'),
+        url('GeographEdit-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('Geograph-Italic.woff2') format('woff2'),
+        url('Geograph-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditBlack-BoldItalic.woff2') format('woff2'),
+        url('GeographEditBlack-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEdit-BoldItalic.woff2') format('woff2'),
+        url('GeographEdit-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditThin.woff2') format('woff2'),
+        url('GeographEditThin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditMedium.woff2') format('woff2'),
+        url('GeographEditMedium.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditLight.woff2') format('woff2'),
+        url('GeographEditLight.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditBlack-Bold.woff2') format('woff2'),
+        url('GeographEditBlack-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographBlack-BoldItalic.woff2') format('woff2'),
+        url('GeographBlack-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographThin.woff2') format('woff2'),
+        url('GeographThin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('Geograph-BoldItalic.woff2') format('woff2'),
+        url('Geograph-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographLight-Italic.woff2') format('woff2'),
+        url('GeographLight-Italic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEdit-Italic.woff2') format('woff2'),
+        url('GeographEdit-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph Edit';
+    src: url('GeographEditMedium-Italic.woff2') format('woff2'),
+        url('GeographEditMedium-Italic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographLight.woff2') format('woff2'),
+        url('GeographLight.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographMedium.woff2') format('woff2'),
+        url('GeographMedium.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('GeographBlack-Bold.woff2') format('woff2'),
+        url('GeographBlack-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geograph';
+    src: url('Geograph-Bold.woff2') format('woff2'),
+        url('Geograph-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+

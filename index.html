@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            A-Frame Scene with Smooth Camera Transitions and Mouse Control
+        </title>
+
+        <link rel="stylesheet" href="/assets/styles.css" />
+        <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-orbit-controls@1.3.2/dist/aframe-orbit-controls.min.js"></script>
+    </head>
+    <body>
+        <div id="loading-screen">
+            <div>
+                <button id="start-button" disabled>Loading...</button>
+            </div>
+        </div>
+
+        <div id="info-box">Click an object to zoom and update text here</div>
+        <div id="navigation-buttons">
+            <button id="prev-button">Previous</button>
+            <button id="next-button">Next</button>
+        </div>
+
+        <a-scene
+            id="scene"
+            fog="type: linear; color: #FFFAF6; far: 30"
+            xr-mode-ui="enabled: false"
+            renderer="antialias: true;
+                   colorManagement: true;
+                   physicallyCorrectLights: true;"
+        >
+            <a-assets>
+                <a-asset-item
+                    id="model1"
+                    src="/assets/glb/Tree Floating.glb"
+                ></a-asset-item>
+                <a-asset-item
+                    id="model2"
+                    src="/assets/glb/Tree Lava.glb"
+                ></a-asset-item>
+                <a-asset-item
+                    id="model3"
+                    src="/assets/glb/Tree Light.glb"
+                ></a-asset-item>
+            </a-assets>
+
+            <!-- Lighting -->
+            <a-light type="ambient" intensity="2"> </a-light>
+            <a-light
+                type="directional"
+                position="1 4 2"
+                intensity="1"
+                shadow
+            ></a-light>
+
+            <!-- 3D Objects -->
+            <a-plane
+                shadow="cast: true"
+                color="#F4D634"
+                rotation="-90 0 0"
+                scale="10 10 1"
+            >
+            </a-plane>
+            <a-gltf-model src="#model1" position="0 0 0" class="clickable" text-content="This is a floating tree, defying gravity with grace. Its ethereal presence gives a sense of magic, as if it belongs to a world beyond our imagination. The branches seem to sway gently in the air, untouched by the forces of nature.
+
+Imagine a place where such trees float freely, creating a surreal and tranquil landscape. This tree inspires curiosity, inviting us to explore what lies beyond the boundaries of reality."></a-gltf-model>
+
+            <a-gltf-model src="#model2" position="-3 0 0" class="clickable" text-content="This is a tree engulfed in vibrant lava, showcasing resilience. Despite being surrounded by molten rock, it stands tall, embodying the beauty of strength and perseverance. The bright hues of lava contrast vividly against the tree, creating a captivating scene.
+
+The tree's ability to endure such intense heat is a metaphor for resilience in the face of adversity. It reminds us that even in the most hostile environments, life can find a way to thrive and flourish, radiating an aura of power and determination."></a-gltf-model>
+
+            <a-gltf-model src="#model3" position="3 0 0" class="clickable" text-content="This is a luminous tree, glowing with ethereal light. Its radiance seems almost otherworldly, casting a soft glow that illuminates the surrounding space. The gentle light creates an atmosphere of peace and serenity, as if the tree holds an ancient wisdom within.
+
+The glowing branches give the impression of being a beacon in the darkness, guiding those who seek comfort or answers. It symbolizes hope and enlightenment, inspiring us to find light even in the darkest moments of our lives."></a-gltf-model>
+
+            <!-- Camera with orbit controls -->
+            <a-entity id="cameraRig" position="0 2 10">
+                <a-entity
+                    id="camera"
+                    camera
+                    orbit-controls="
+            autoRotate: false;
+            enableDamping: true;
+            dampingFactor: 0.1;
+            rotateSpeed: 0.3;
+            zoomSpeed: 0.5;
+            maxDistance: 30;
+            minDistance: 3;
+            enablePan: true;
+            invertZoom: false;
+            enableKeys: true;
+            enableZoom: true;"
+                    position="0 0 0"
+                >
+                    <a-entity
+                        cursor="fuse: false; rayOrigin: mouse"
+                        raycaster="objects: .clickable"
+                    ></a-entity>
+                </a-entity>
+            </a-entity>
+        </a-scene>
+
+        <script>
+            const startButton = document.getElementById("start-button");
+
+            // Enable start button after assets are loaded
+            const sceneEl = document.querySelector("a-scene");
+            sceneEl.addEventListener("loaded", () => {
+                startButton.disabled = false;
+                startButton.textContent = "Start";
+            });
+
+            startButton.addEventListener("click", function () {
+                document.getElementById("loading-screen").style.display =
+                    "none";
+                document.getElementById("scene").style.visibility = "visible";
+                document.getElementById("info-box").style.display = "block";
+                document.getElementById("navigation-buttons").style.display =
+                    "block";
+
+                // Ensure orbit controls are properly initialized
+                const camera = document.getElementById("camera");
+                camera.components["orbit-controls"].controls.update();
+            });
+
+            const clickableElements = document.querySelectorAll(".clickable");
+            let currentHotspotIndex = 0;
+
+            function moveToHotspot(index) {
+                const cameraRig = document.getElementById("cameraRig");
+                const targetElement = clickableElements[index];
+                const targetPosition = targetElement.getAttribute("position");
+
+                cameraRig.setAttribute("animation__zoom", {
+                    property: "position",
+                    to: `${targetPosition.x} ${parseFloat(targetPosition.y) + 1.5} ${parseFloat(targetPosition.z) + 5}`,
+                    dur: 1000,
+                    easing: "easeInOutQuad",
+                });
+
+                const camera = document.getElementById("camera");
+                camera.setAttribute("orbit-controls", "target", `${targetPosition.x} ${targetPosition.y} ${targetPosition.z}`);
+
+                // Update info-box text
+                document.getElementById(
+                    "info-box"
+                ).textContent = `You moved to the ${targetElement.id}!`;
+            }
+
+            // Add event listener to each clickable element for zoom effect
+            clickableElements.forEach((element, index) => {
+                element.addEventListener("click", () => {
+                    moveToHotspot(index);
+                    let textContent = '';
+                    switch(index) {
+                        case 0:
+                            textContent = `This is a floating tree, defying gravity with grace. Its ethereal presence gives a sense of magic, as if it belongs to a world beyond our imagination. The branches seem to sway gently in the air, untouched by the forces of nature.
+                            
+                            Imagine a place where such trees float freely, creating a surreal and tranquil landscape. This tree inspires curiosity, inviting us to explore what lies beyond the boundaries of reality.`;
+                            break;
+                        case 1:
+                            textContent = `This is a tree engulfed in vibrant lava, showcasing resilience. Despite being surrounded by molten rock, it stands tall, embodying the beauty of strength and perseverance. The bright hues of lava contrast vividly against the tree, creating a captivating scene.
+                            
+                            The tree's ability to endure such intense heat is a metaphor for resilience in the face of adversity. It reminds us that even in the most hostile environments, life can find a way to thrive and flourish, radiating an aura of power and determination.`;
+                            break;
+                        case 2:
+                            textContent = `This is a luminous tree, glowing with ethereal light. Its radiance seems almost otherworldly, casting a soft glow that illuminates the surrounding space. The gentle light creates an atmosphere of peace and serenity, as if the tree holds an ancient wisdom within.
+                            
+                            The glowing branches give the impression of being a beacon in the darkness, guiding those who seek comfort or answers. It symbolizes hope and enlightenment, inspiring us to find light even in the darkest moments of our lives.`;
+                            break;
+                    }
+                    document.getElementById('info-box').innerHTML = textContent;
+                });
+            });
+
+            document
+                .getElementById("next-button")
+                .addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    currentHotspotIndex =
+                        (currentHotspotIndex + 1) % clickableElements.length;
+                    moveToHotspot(currentHotspotIndex);
+                });
+
+            document
+                .getElementById("prev-button")
+                .addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    currentHotspotIndex =
+                        (currentHotspotIndex - 1 + clickableElements.length) %
+                        clickableElements.length;
+                    moveToHotspot(currentHotspotIndex);
+                });
+        </script>
+    </body>
+</html>

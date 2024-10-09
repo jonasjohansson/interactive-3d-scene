@@ -1,0 +1,72 @@
+
+@import "fonts/fonts.css";
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Geograph', sans-serif;
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: default;
+}
+
+#loading-screen h1 {
+  text-align: center;
+}
+
+#start-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#info-box {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  z-index: 5;
+}
+
+#navigation-buttons {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+#prev-button,
+#next-button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+#next-button {
+  margin-left: 10px;
+}
+
+button {
+  font-family: inherit;
+}
