@@ -3,32 +3,25 @@ document.querySelectorAll('.hoverable').forEach(entity => {
       const mesh = entity.getObject3D('mesh');
       if (!mesh) return;
   
-      // Traverse through the model and set transparent and initial opacity
+      // Traverse model once and set initial transparency
       mesh.traverse(child => {
         if (child.isMesh && child.material) {
-          child.material.transparent = true; // Enable opacity change
-          child.material.opacity = 1; // Set initial opacity
+          child.material.transparent = true; // Enable transparency
+          child.material.opacity = 1; // Initial opacity
         }
       });
   
-      // Add mouseenter event to change opacity on hover
-      entity.addEventListener('mouseenter', () => {
+      // Handle opacity change on hover
+      const setOpacity = (opacity) => {
         mesh.traverse(child => {
           if (child.isMesh && child.material) {
-            child.material.transparent = true; // Make sure transparency is enabled
-            child.material.opacity = 0.5; // Change opacity on hover
+            child.material.opacity = opacity;
           }
         });
-      });
+      };
   
-      // Add mouseleave event to reset opacity
-      entity.addEventListener('mouseleave', () => {
-        mesh.traverse(child => {
-          if (child.isMesh && child.material) {
-            child.material.opacity = 1; // Reset opacity when the mouse leaves
-          }
-        });
-      });
+      entity.addEventListener('mouseenter', () => setOpacity(0.5));
+      entity.addEventListener('mouseleave', () => setOpacity(1));
     });
   });
   
@@ -41,13 +34,13 @@ document.querySelectorAll('.hoverable').forEach(entity => {
     startButton.textContent = "Start";
   });
   
-  startButton.addEventListener("click", function () {
+  startButton.addEventListener("click", () => {
     document.getElementById("loading-screen").style.display = "none";
     document.getElementById("scene").style.visibility = "visible";
     document.getElementById("info-box").style.display = "block";
     document.getElementById("navigation-buttons").style.display = "block";
   
-    // Ensure orbit controls are properly initialized
+    // Initialize orbit controls
     const camera = document.getElementById("camera");
     camera.components["orbit-controls"].controls.update();
   });
@@ -60,50 +53,35 @@ document.querySelectorAll('.hoverable').forEach(entity => {
     const targetElement = clickableElements[index];
     const targetPosition = targetElement.getAttribute("position");
   
+    // Animate camera to target position
     cameraRig.setAttribute("animation__zoom", {
       property: "position",
-      to: `${targetPosition.x} ${
-        parseFloat(targetPosition.y) + 1.5
-      } ${parseFloat(targetPosition.z) + 5}`,
+      to: `${targetPosition.x} ${parseFloat(targetPosition.y) + 1.5} ${parseFloat(targetPosition.z) + 5}`,
       dur: 1000,
       easing: "easeInOutQuad",
     });
   
     const camera = document.getElementById("camera");
-    camera.setAttribute(
-      "orbit-controls",
-      "target",
-      `${targetPosition.x} ${targetPosition.y} ${targetPosition.z}`
-    );
-  
-    // Fetch the text-content attribute from the target element
-    const textContent = targetElement.getAttribute("text-content");
+    camera.setAttribute("orbit-controls", "target", `${targetPosition.x} ${targetPosition.y} ${targetPosition.z}`);
   
     // Update info-box text
-    document.getElementById("info-box").textContent = textContent;
+    document.getElementById("info-box").textContent = targetElement.getAttribute("text-content");
   }
   
-  // Add event listener to each clickable element for zoom effect
+  // Add event listeners for each clickable element
   clickableElements.forEach((element, index) => {
-    element.addEventListener("click", () => {
-      moveToHotspot(index);
-  
-      // Fetch text content from the clicked element and update info-box
-      const textContent = element.getAttribute("text-content");
-      document.getElementById("info-box").innerHTML = textContent;
-    });
+    element.addEventListener("click", () => moveToHotspot(index));
   });
   
-  document.getElementById("next-button").addEventListener("click", function (event) {
+  document.getElementById("next-button").addEventListener("click", event => {
     event.stopPropagation();
     currentHotspotIndex = (currentHotspotIndex + 1) % clickableElements.length;
     moveToHotspot(currentHotspotIndex);
   });
   
-  document.getElementById("prev-button").addEventListener("click", function (event) {
+  document.getElementById("prev-button").addEventListener("click", event => {
     event.stopPropagation();
-    currentHotspotIndex =
-      (currentHotspotIndex - 1 + clickableElements.length) % clickableElements.length;
+    currentHotspotIndex = (currentHotspotIndex - 1 + clickableElements.length) % clickableElements.length;
     moveToHotspot(currentHotspotIndex);
   });
   
